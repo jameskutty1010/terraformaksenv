@@ -1,0 +1,27 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: edge-stack-listener-8080
+  namespace: default
+spec:
+  port: 8080
+  protocol: HTTP
+  securityModel: XFP
+  l7Depth: 2
+  hostBinding:
+    namespace:
+      from: ALL
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: edge-stack-listener-8443
+  namespace: default
+spec:
+  port: 8443
+  protocol: HTTPS
+  securityModel: XFP
+  l7Depth: 2
+  hostBinding:
+    namespace:
+      from: ALL

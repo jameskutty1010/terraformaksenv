@@ -1,0 +1,33 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: web-app-ingress
+  namespace: default
+  uid: 001bfee8-3a3f-4729-b6e0-cfb1361932ca
+  resourceVersion: '375965'
+  generation: 2
+  creationTimestamp: '2022-07-04T12:21:02Z'
+  annotations:
+    cert-manager.io/cluster-issuer: module.cert_manager.letsencrypt-production
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - dmsdev.datamatica.uk
+      secretName: tls-secret
+  rules:
+    - host: dmsdev.datamatica.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-app
+                port:
+                  number: 80
+status:
+  loadBalancer:
+    ingress:
+      - ip: ${public_ip}        
